@@ -49,11 +49,19 @@ public class DetallePokemonActivity extends AppCompatActivity {
         ImageView fotoImageView = findViewById(R.id.fotoImageView);
         TextView tipoTextView = findViewById(R.id.tipoPokemonTextView);
         nombreTextView.setText(nombrePokemon);
+
         String url = intent.getStringExtra("pokmon_image_url");
         Glide.with(this).load(url).centerCrop().diskCacheStrategy(DiskCacheStrategy.ALL).into(fotoImageView);
         retrofit = new Retrofit.Builder().baseUrl("https://pokeapi.co/api/v2/").addConverterFactory(GsonConverterFactory.create()).build();
         aptoParaCargar = true;
         offset = 0;
+        Button volverButton = findViewById(R.id.volverButton);
+        volverButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         Button favoritosButton = findViewById(R.id.favoritosButton);
         favoritosButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,9 +71,6 @@ public class DetallePokemonActivity extends AppCompatActivity {
                 String tipoPokemon = tipoTextView.getText().toString();
                 String pesoPokemon = "0";
                 String alturaPokemon = "0";
-                // Aquí asegúrate de obtener el tipo del Pokémon
-                // Peso y altura, puedes obtenerlos de la API o pasarlos como extras en el Intent
-
                 // Insertar el Pokémon en la base de datos
                 dbHelper.insertarPokemon(nombrePokemon,tipoPokemon,pesoPokemon,alturaPokemon); // Aquí asegúrate de pasar el peso y la altura correctos
 
@@ -80,36 +85,7 @@ public class DetallePokemonActivity extends AppCompatActivity {
                         Toast.makeText(DetallePokemonActivity.this, "¡Pokemon eliminado de favoritos!", Toast.LENGTH_SHORT).show();
                     }
                 });
-
-
-            }
-        });
-
-
-    }
-    private void obtenerTipo(){
-        PokeapiService service = retrofit.create(PokeapiService.class);
-        Call<PokemonRespuesta> pokemonRespuestaCall = service.obtenerTipo(807, offset);
-        pokemonRespuestaCall.enqueue(new Callback<PokemonRespuesta>() {
-            @Override
-            public void onResponse(Call<PokemonRespuesta> call, Response<PokemonRespuesta> response) {
-                aptoParaCargar = true;
-                if (response.isSuccessful()){
-                    PokemonRespuesta pokemonRespuesta = response.body();
-                    pokemonRespuesta.getResults();
-                    ArrayList<Pokemon> listaPokemon = pokemonRespuesta.getResults();
-                    listaPokemonAdapter.adicionarListaPokemon(listaPokemon);
-                }else{
-                    Log.e(TAG, " onResponse: " + response.errorBody());
-                }
-            }
-            @Override
-            public void onFailure(Call<PokemonRespuesta> call, Throwable t) {
-                aptoParaCargar = true;
-                Log.e(TAG, " onFailure: " + t.getMessage());
             }
         });
     }
-
-
 }

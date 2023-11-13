@@ -4,8 +4,6 @@ package com.example.pokedex911;
 public class Pokemon {
     private int number;
     private String name;
-
-
     private String type;
     private String weight;
     private String height;

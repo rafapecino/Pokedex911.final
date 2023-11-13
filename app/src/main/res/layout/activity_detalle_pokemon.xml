@@ -15,6 +15,7 @@
         android:textSize="24sp"
         android:textStyle="bold" />
 
+
     <ImageView
         android:id="@+id/fotoImageView"
         android:layout_width="100dp"

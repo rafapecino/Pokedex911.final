@@ -1,6 +1,9 @@
 package com.example.pokedex911;
 
 
+import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -18,8 +21,6 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 public class MainActivity extends AppCompatActivity {
-
-    private static final String TAG = "POKEDEX";
 
     private Retrofit retrofit;
 
@@ -51,8 +52,6 @@ public class MainActivity extends AppCompatActivity {
         aptoParaCargar = true;
         offset = 0;
         obtenerNombre();
-
-
     }
 
     private void obtenerNombre() {
@@ -73,6 +72,30 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
 
+            @Override
+            public void onFailure(Call<PokemonRespuesta> call, Throwable t) {
+                aptoParaCargar = true;
+                Log.e(TAG, " onFailure: " + t.getMessage());
+            }
+        });
+    }
+    private void obtenerTipo(){
+        PokeapiService service = retrofit.create(PokeapiService.class);
+        Call<PokemonRespuesta> pokemonRespuestaCall = service.obtenerTipo(807, offset);
+        pokemonRespuestaCall.enqueue(new Callback<PokemonRespuesta>() {
+
+            @Override
+            public void onResponse(Call<PokemonRespuesta> call, Response<PokemonRespuesta> response) {
+                aptoParaCargar = true;
+                if (response.isSuccessful()){
+                    PokemonRespuesta pokemonRespuesta = response.body();
+                    pokemonRespuesta.getResults();
+                    ArrayList<Pokemon> listaPokemon = pokemonRespuesta.getResults();
+                    listaPokemonAdapter.adicionarListaPokemon(listaPokemon);
+                }else{
+                    Log.e(TAG, " onResponse: " + response.errorBody());
+                }
+            }
             @Override
             public void onFailure(Call<PokemonRespuesta> call, Throwable t) {
                 aptoParaCargar = true;

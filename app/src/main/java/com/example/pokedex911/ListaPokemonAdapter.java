@@ -51,6 +51,7 @@ public class ListaPokemonAdapter extends RecyclerView.Adapter<ListaPokemonAdapte
                 Intent intent = new Intent(context, DetallePokemonActivity.class);
                 intent.putExtra("pokemon_name", p.getName());
                 intent.putExtra("pokmon_image_url", "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/"+p.getNumber()+".png");
+                intent.putExtra("pokemon_type", p.getType());
                 context.startActivity(intent);
             }
 
@@ -71,6 +72,7 @@ public class ListaPokemonAdapter extends RecyclerView.Adapter<ListaPokemonAdapte
     public class ViewHolder extends RecyclerView.ViewHolder{
         private ImageView fotoImageView;
         private TextView nombreTextView;
+
 
         public ViewHolder(View itemView){
             super(itemView);
