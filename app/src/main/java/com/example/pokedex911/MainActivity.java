@@ -80,28 +80,5 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-    private void obtenerTipo(){
-        PokeapiService service = retrofit.create(PokeapiService.class);
-        Call<PokemonRespuesta> pokemonRespuestaCall = service.obtenerTipo(807, offset);
-        pokemonRespuestaCall.enqueue(new Callback<PokemonRespuesta>() {
-            @Override
-            public void onResponse(Call<PokemonRespuesta> call, Response<PokemonRespuesta> response) {
-                aptoParaCargar = true;
-                if (response.isSuccessful()){
-                    PokemonRespuesta pokemonRespuesta = response.body();
-                    pokemonRespuesta.getResults();
-                    ArrayList<Pokemon> listaPokemon = pokemonRespuesta.getResults();
-                    listaPokemonAdapter.adicionarListaPokemon(listaPokemon);
-                }else{
-                    Log.e(TAG, " onResponse: " + response.errorBody());
-                }
-            }
-            @Override
-            public void onFailure(Call<PokemonRespuesta> call, Throwable t) {
-                aptoParaCargar = true;
-                Log.e(TAG, " onFailure: " + t.getMessage());
-            }
-        });
-        }
 
 }

@@ -27,11 +27,41 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/nombrePokemonTextView"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="32dp"
         android:text="Tipo del Pokémon"
         android:textSize="18sp" />
 
-    <!-- Agrega más TextViews para otros detalles del Pokémon (peso, altura, etc.) -->
+    <Button
+        android:id="@+id/favoritosButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="128dp"
+        android:layout_marginEnd="122dp"
+        android:layout_marginBottom="413dp"
+        android:text="Añadir a favoritos" />
+
+    <Button
+        android:id="@+id/quitarFavoritosButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tipoPokemonTextView"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="307dp"
+        android:layout_marginEnd="105dp"
+        android:text="Quitar de favoritos" />
+
+    <Button
+        android:id="@+id/volverButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="295dp"
+        android:layout_marginBottom="26dp"
+        android:text="Volver" />
 
 
 </RelativeLayout>

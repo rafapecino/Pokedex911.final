@@ -1,5 +1,6 @@
 package com.example.pokedex911;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -39,4 +40,21 @@ public class PokemonDBHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_POKEMON);
         onCreate(db);
     }
+    public void insertarPokemon(String nombre, String tipo, String peso, String altura) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(KEY_NAME, nombre);
+        values.put(KEY_TYPE, tipo);
+        values.put(KEY_WEIGHT, peso);
+        values.put(KEY_HEIGHT, altura);
+        db.insert(TABLE_POKEMON, null, values);
+        db.close();
+    }
+    public void deletePokemon(String nombre) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_POKEMON, KEY_NAME + " = ?", new String[]{nombre});
+        db.close();
+    }
+
+
 }

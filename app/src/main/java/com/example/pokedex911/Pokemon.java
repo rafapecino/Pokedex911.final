@@ -10,6 +10,8 @@ public class Pokemon {
     private String weight;
     private String height;
 
+
+
     public String getType() {
         return type;
     }
