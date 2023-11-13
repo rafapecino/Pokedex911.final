@@ -4,6 +4,36 @@ package com.example.pokedex911;
 public class Pokemon {
     private int number;
     private String name;
+
+
+    private String type;
+    private String weight;
+    private String height;
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getWeight() {
+        return weight;
+    }
+
+    public void setWeight(String weight) {
+        this.weight = weight;
+    }
+
+    public String getHeight() {
+        return height;
+    }
+
+    public void setHeight(String height) {
+        this.height = height;
+    }
+
     private String url;
 
     public String getName() {

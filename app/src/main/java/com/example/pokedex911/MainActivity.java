@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // Inicializar RecyclerView
         recyclerView = findViewById(R.id.recyclerView);
         listaPokemonAdapter = new ListaPokemonAdapter(this);
         recyclerView.setAdapter(listaPokemonAdapter);
@@ -48,8 +49,10 @@ public class MainActivity extends AppCompatActivity {
                 .build();
 
         aptoParaCargar = true;
-        offset = 0; // Puedes configurar offset en 0 para cargar todos los Pokémon
-        obtenerNombre(); // Método modificado para cargar todos los Pokémon
+        offset = 0;
+        obtenerNombre();
+
+
     }
 
     private void obtenerNombre() {
@@ -84,8 +87,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<PokemonRespuesta> call, Response<PokemonRespuesta> response) {
                 aptoParaCargar = true;
-                if(response.isSuccessful()){
+                if (response.isSuccessful()){
                     PokemonRespuesta pokemonRespuesta = response.body();
+                    pokemonRespuesta.getResults();
                     ArrayList<Pokemon> listaPokemon = pokemonRespuesta.getResults();
                     listaPokemonAdapter.adicionarListaPokemon(listaPokemon);
                 }else{
@@ -98,5 +102,6 @@ public class MainActivity extends AppCompatActivity {
                 Log.e(TAG, " onFailure: " + t.getMessage());
             }
         });
-    }
+        }
+
 }
